@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+
+const http = require('http');
+
+
+const BuilderJsonResponse = require("../src/lib/BuilderJsonResponse");
+
+const app = require('../src/app');
+
+
+
+app.use((req, res, next) => {
+  BuilderJsonResponse.Error(res, 'not found', 404)
+});
+
+app.use((err, req, res, next) => {
+  // always log the error
+  console.error('ERROR', req.method, req.path, err);
+
+  if (!res.headersSent) {
+    BuilderJsonResponse.Error(res,err);
+  }
+});
+
+let server = http.createServer(app);
+
+server.on('error', error => {
+  if (error.syscall !== 'listen') { throw error }
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`Port ${process.env.PORT} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`Port ${process.env.PORT} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+});
+
+server.listen(process.env.PORT, () => {
+  let d=new Date();
+  console.log( `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
+  console.log(`Listening on http://localhost:${process.env.PORT}`);
+
+});

@@ -1,0 +1,43 @@
+{
+  "name": "back",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "DEBUG=back:* nodemon ./bin/www",
+    "dev-windows": "nodemon ./bin/www",
+    "test_api": "mocha --timeout 20000 test_api/",
+    "test_api_root": "mocha --timeout 20000 test_api/test_root.js",
+    "test_api_grupo": "mocha --timeout 20000 test_api/test_grupo.js",
+    "test_api_alumnos": "mocha --timeout 20000 test_api/test_alumnos.js",
+    "test_api_asistencia": "mocha --timeout 20000 test_api/test_asistencia.js",
+    "test_api_actividades": "mocha --timeout 20000 test_api/test_actividades.js",
+    "test_unit": "mocha test_unit/**/*_Test.js",
+    "test_unit_basic": "mocha test_unit/basic_test.js",
+    "test_unit_tasistencia": "mocha test_unit/controller/asistencia/proceso/ProCrearTablaAsistencia_Test.js",
+    "test_unit_tact": "mocha test_unit/controller/actividades/proceso/ProCrearTablaAct_Test.js",
+    "coverage": "nyc npm run test_unit"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.10",
+    "morgan": "^1.9.0",
+    "uniqid": "^5.0.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "nodemon": "^1.12.1",
+    "nyc": "^14.1.1",
+    "puppeteer": "^1.18.1",
+    "supertest": "^4.0.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "test_api/*",
+      "test_uit/*"
+    ],
+    "delay": "2500"
+  }
+}
